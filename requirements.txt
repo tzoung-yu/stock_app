@@ -4,6 +4,7 @@ pydantic
 pandas
 numpy
 torch
-sklearn
+scikit-learn
 yfinance
 os
+
