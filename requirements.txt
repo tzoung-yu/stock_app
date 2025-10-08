@@ -5,6 +5,7 @@ pandas
 numpy
 torch
 scikit-learn
-yfinance
+yfinance==0.2.59
 os
+
 
