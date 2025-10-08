@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: stock-app
+    env: python
+    plan: free
+    PYTHON_VERSION: "3.11.4"
+    buildCommand: ""
+    startCommand: ./start.sh
+    autoDeploy: true
+
