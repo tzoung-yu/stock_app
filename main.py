@@ -13,7 +13,7 @@ app = FastAPI()
 # 加入 CORS 設定
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 或指定你的 Flutter App 的網址
+    allow_origins=["https://stock-app-1-a1ft.onrender.com"],  # 或指定你的 Flutter App 的網址
     allow_credentials=True,
     allow_methods=["*"],  # 允許所有方法，包括 OPTIONS
     allow_headers=["*"],  # 允許所有 headers
