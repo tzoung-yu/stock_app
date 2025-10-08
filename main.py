@@ -4,9 +4,6 @@ import torch
 import torch.nn as nn
 from sklearn.preprocessing import StandardScaler
 
-import yfinance as yf
-import os
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,19 +29,12 @@ def predict(data: StockInput):
     # 1️⃣ 下載 資料
     fn = 'ai_predict.csv'
 
-    data = yf.download(stoid, start='2015-01-01', auto_adjust = False)
-    data = data.reset_index(drop=False)
-    if os.path.isfile(fn):
-      os.remove(fn)
-    ff=open(fn, 'a+')
-    print("Date", "Volume", "Open", "High", "Low", "Close", sep=',', file=ff)
-    for i in range(len(data)):
-      d = data.iloc[i]
-      if d["Volume"].iloc[0] != stoid :
-        print(d["Date"].iloc[0], d["Volume"].iloc[0], d["Open"].iloc[0], d["High"].iloc[0], d["Low"].iloc[0], d["Close"].iloc[0], sep=',', file=ff)
-    ff.close()
-    data1 = pd.read_csv(fn,index_col=0,parse_dates=True)
-    df = data1.reset_index(drop=False)
+    df = fmind.taiwan_stock_daily(stock_id = stoid, start_date = '2015-01-01')
+    df = df.drop(['Trading_money', 'stock_id', 'spread', 'Trading_turnover'], axis=1)
+    df.columns = ['Date', 'Volume', 'Open', 'High', 'Low', 'Close']
+    df.set_index("Date" , inplace=True)
+    df = df.set_index(pd.DatetimeIndex(pd.to_datetime(df.index)))
+    df = df.reset_index(drop=False)
 
     df['MA20'] = df['Close'].rolling(window=20).mean()
 
