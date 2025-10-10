@@ -22,6 +22,10 @@ app.add_middleware(
 class StockInput(BaseModel):
     stoid: str
 
+@app.get("/", response_class=HTMLResponse)
+def home():
+    return "<h2>這是股票預測 API，請使用 /predict 路徑</h2>"
+
 @app.post("/predict")
 def predict(data: StockInput):
 
