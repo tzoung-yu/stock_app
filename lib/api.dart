@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<double> predictStock(String stoid) async {
-  final url = Uri.parse('http://127.0.0.1:8000/predict');
+  final url = Uri.parse('https://stock-app-1-a1ft.onrender.com:10000/predict');
   final response = await http.post(
     url,
     headers: {'Content-Type': 'application/json'},
